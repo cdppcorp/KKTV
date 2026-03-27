@@ -103,7 +103,7 @@ FUNCTION member_search(request):
 
 ## 2-2. LDAP 삽입(LDAP Injection)
 
-> **📦 기타 삽입 공격 — LDAP 삽입**
+> **기타 삽입 공격 — LDAP 삽입**
 >
 > **우선순위: 낮음** — 대부분의 바이브 코딩 프로젝트에서는 LDAP를 직접 다루는 경우가 드뭅니다. 하지만 기업용 사내 시스템이나 Active Directory 연동 기능을 구현할 때는 주의가 필요합니다.
 >

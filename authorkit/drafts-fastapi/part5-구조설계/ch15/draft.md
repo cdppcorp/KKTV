@@ -257,6 +257,6 @@ gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 
 ---
 
-> **📦 기타 캡슐화 이슈**
+> **기타 캡슐화 이슈**
 >
 > 이 장에서 다루지 않은 캡슐화 관련 보안약점으로 **Public 메소드로부터 반환된 Private 배열**과 **Private 배열에 Public 데이터 할당** 문제가 있습니다. 파이썬에서는 이름 앞에 이중 밑줄(`__`)을 붙여 private 변수를 표시하는 관례를 사용합니다. private 배열을 public 메서드에서 직접 반환하면 외부에서 원본 배열을 수정할 수 있으므로, 슬라이싱(`return self.__data[:]`)이나 `copy.deepcopy()`를 사용하여 복사본을 반환해야 합니다. 마찬가지로, 외부 데이터를 private 배열에 대입할 때도 `self.__data = input_list[:]`처럼 복사본을 저장하여 외부 참조와의 연결을 끊어야 합니다. 바이브 코딩에서는 AI가 생성한 클래스 코드에서 mutable 객체(리스트, 딕셔너리)의 참조 공유 문제를 반드시 점검하십시오.

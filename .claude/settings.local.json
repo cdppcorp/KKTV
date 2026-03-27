@@ -19,7 +19,12 @@
       "Bash(mv skills/prompt skills/guide)",
       "Bash(mv skills-ko/review skills-ko/start)",
       "Bash(mv skills-ko/prompt skills-ko/guide)",
-      "Bash(find C:/Users/Nowzero/PycharmProjects/Skills/win-hooks/ -name *.md -not -path */.*)"
+      "Bash(find C:/Users/Nowzero/PycharmProjects/Skills/win-hooks/ -name *.md -not -path */.*)",
+      "Bash(for d:*)",
+      "Bash(do test:*)",
+      "Bash(echo \"  ✅ skills/$d/SKILL.md\")",
+      "Bash(echo \"  ❌ skills/$d/SKILL.md MISSING\")",
+      "Bash(done)"
     ]
   }
 }

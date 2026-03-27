@@ -263,6 +263,6 @@ safety check -r requirements.txt
 
 ---
 
-> **📦 기타 API 주의사항**
+> **기타 API 주의사항**
 >
 > 이 장에서 다루지 않은 API 관련 보안약점으로 **DNS lookup에 의존한 보안 결정** 문제가 있습니다. 도메인명(Domain Name)을 기반으로 접근 제어나 인증을 수행하면 DNS 스푸핑(DNS Spoofing) 공격에 취약해집니다. 공격자가 DNS 캐시를 오염시키면 신뢰할 수 없는 서버가 마치 정상 서버인 것처럼 위장할 수 있습니다. 보안 결정에는 도메인명 대신 IP 주소를 직접 비교하거나, TLS 인증서(Certificate) 검증을 통해 상대방의 신원을 확인하는 방식을 사용해야 합니다. FastAPI에서 `httpx`를 사용할 때 `verify=True`(기본값)를 반드시 유지하고, AI가 `verify=False`로 SSL 검증을 비활성화하는 코드를 생성하면 주의 깊게 검토하십시오.

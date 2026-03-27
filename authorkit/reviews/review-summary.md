@@ -10,16 +10,16 @@
 
 | Severity | Count |
 |----------|-------|
-| :red_circle: HIGH | 5 |
-| :yellow_circle: MEDIUM | 12 |
-| :green_circle: LOW | 5 |
+| [HIGH] HIGH | 5 |
+| [MEDIUM] MEDIUM | 12 |
+| [LOW] LOW | 5 |
 | **Total** | **22** |
 
 ---
 
 ## Top 10 Most Critical Fixes Needed
 
-### 1. :red_circle: ch01 PART description table is wrong (PART 3, 4, 5)
+### 1. [HIGH] ch01 PART description table is wrong (PART 3, 4, 5)
 
 **Location**: `ch01/draft.md`, lines 222-229 (section 1-2, "가이드의 전체 구조" table)
 
@@ -32,7 +32,7 @@
 
 ---
 
-### 2. :red_circle: Missing section 6-3 (메모리 버퍼 오버플로우)
+### 2. [HIGH] Missing section 6-3 (메모리 버퍼 오버플로우)
 
 **Location**: `ch06/draft.md`
 
@@ -42,7 +42,7 @@
 
 ---
 
-### 3. :red_circle: Section title mismatch: ch03 section 3-4
+### 3. [HIGH] Section title mismatch: ch03 section 3-4
 
 **Location**: `ch03/draft.md` and `structure.md`
 
@@ -52,7 +52,7 @@
 
 ---
 
-### 4. :red_circle: Missing promised content: HTTPS/TLS setup and security headers
+### 4. [HIGH] Missing promised content: HTTPS/TLS setup and security headers
 
 **Location**: ch01 promises "배포와 설정" covering "서버 설정, HTTPS, 보안 헤더" in PART 5
 
@@ -62,7 +62,7 @@
 
 ---
 
-### 5. :red_circle: ch01 situational reading guide table is misaligned
+### 5. [HIGH] ch01 situational reading guide table is misaligned
 
 **Location**: `ch01/draft.md`, lines 270-276 (상황별 추천 경로 table)
 
@@ -75,7 +75,7 @@
 
 ---
 
-### 6. :yellow_circle: 8 diagram files exist but are never referenced
+### 6. [MEDIUM] 8 diagram files exist but are never referenced
 
 **Location**: `ch02/diagram.md`, `ch04/diagram.md`, `ch04/diagram-csrf.md`, `ch04/diagram-ssrf.md`, `ch07/diagram.md`, `ch08/diagram.md`, `ch09/diagram.md`, `ch17/diagram.md`
 
@@ -85,7 +85,7 @@
 
 ---
 
-### 7. :yellow_circle: No inter-chapter cross-references in entire book
+### 7. [MEDIUM] No inter-chapter cross-references in entire book
 
 **Problem**: Not a single chapter references another chapter. When ch04 discusses session theft via XSS, it doesn't point to ch11 for cookie security. When ch06 uses `@login_required`, it doesn't point to ch07 where this is explained.
 
@@ -98,7 +98,7 @@
 
 ---
 
-### 8. :yellow_circle: ch15 and ch16 have collapsed sections
+### 8. [MEDIUM] ch15 and ch16 have collapsed sections
 
 **Problem**: structure.md defines:
 - ch15: 15-1, 15-2, 15-3, 15-4 (4 full sections)
@@ -112,7 +112,7 @@ But in the drafts:
 
 ---
 
-### 9. :yellow_circle: Prerequisite ordering: concepts used before explanation
+### 9. [MEDIUM] Prerequisite ordering: concepts used before explanation
 
 **Problem**: Several chapters use concepts that are explained in later chapters:
 - ch01 uses `bcrypt`, `.env`/`os.environ` (explained in ch08, ch09)
@@ -123,7 +123,7 @@ But in the drafts:
 
 ---
 
-### 10. :yellow_circle: Multiple chapter titles differ between structure.md and drafts
+### 10. [MEDIUM] Multiple chapter titles differ between structure.md and drafts
 
 **Problem**: 6 chapters have notably different titles between structure.md and drafts:
 - ch02: "데이터베이스를 지키는 법" vs "데이터베이스를 노리는 삽입 공격"
