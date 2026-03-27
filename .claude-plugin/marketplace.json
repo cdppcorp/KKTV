@@ -5,17 +5,17 @@
     "url": "https://github.com/cdppcorp"
   },
   "metadata": {
-    "description": "Secure coding guideline skills for vibe coders. Review code for vulnerabilities, auto-fix security issues, run pre-deployment checklists, and generate secure coding prompts.",
-    "version": "1.1.0",
+    "description": "KISA Korean Truncheon for Vulnerabilities — Secure coding guideline skills for vibe coders based on KISA Python Secure Coding Guide 2023. 47 CWE-mapped rules to audit, fix, check, and guide secure code.",
+    "version": "1.2.0",
     "license": "MIT"
   },
   "plugins": [
     {
       "name": "kktv-en",
-      "description": "Secure coding skills (English). start(security audit with categorized reports), fix(auto-fix vulnerabilities), check(pre-deployment checklist), guide(generate secure coding prompts for AI tools).",
+      "description": "KISA Korean Truncheon for Vulnerabilities (English). start(KISA 47-rule security audit), fix(auto-fix vulnerabilities), check(pre-deployment checklist), guide(secure coding prompt generator).",
       "source": "./",
       "strict": false,
-      "keywords": ["security", "secure-coding", "vibe-coding", "vulnerability", "audit", "OWASP"],
+      "keywords": ["KISA", "security", "secure-coding", "vibe-coding", "vulnerability", "audit", "OWASP", "CWE", "Korea"],
       "category": "security",
       "skills": [
         "./skills/start",
@@ -26,10 +26,10 @@
     },
     {
       "name": "kktv-ko",
-      "description": "시큐어코딩 스킬 (한국어). start(보안 검토 + 카테고리별 보고서), fix(취약점 자동 수정), check(배포 전 체크리스트), guide(AI에게 안전한 코드 요청 가이드 생성).",
+      "description": "KISA Korean Truncheon for Vulnerabilities (한국어). start(KISA 47개 규칙 보안 감사), fix(취약점 자동 수정), check(배포 전 체크리스트), guide(시큐어코딩 프롬프트 생성).",
       "source": "./",
       "strict": false,
-      "keywords": ["보안", "시큐어코딩", "바이브코딩", "취약점", "OWASP", "security"],
+      "keywords": ["KISA", "보안", "시큐어코딩", "바이브코딩", "취약점", "OWASP", "CWE", "Korea", "security"],
       "category": "security",
       "skills": [
         "./skills-ko/start",
