@@ -194,6 +194,27 @@ KKTV는 KISA Python 시큐어코딩 가이드(2023년 개정본)의 47개 보안
 
 ---
 
+## Built with win-hooks
+
+Windows 환경의 플러그인 훅 호환성 진단 기능은 [win-hooks](https://github.com/LilMGenius/win-hooks) 플러그인의 진단 로직을 통합한 것입니다. win-hooks는 Windows에서 Claude Code 플러그인을 사용할 때 발생하는 `.sh` 스크립트 호환성 문제를 자동으로 해결합니다.
+
+| 문제 | 원인 | win-hooks 해결 방식 |
+|------|------|-------------------|
+| `.sh` 스크립트 실행 불가 | cmd.exe는 bash 스크립트를 실행할 수 없음 | `.cmd` 폴리글롯 래퍼로 자동 변환 |
+| `python3` 명령 미인식 | Windows는 `python3`이 아닌 `python`을 사용 | `python.exe` → `python3.exe` 자동 복사 |
+| PATH에 없는 명령어 | Unix 전용 도구(semgrep 등)가 미설치 | graceful exit 래퍼로 오류 대신 조용히 통과 |
+| 쉘 파이프라인 비호환 | `cmd1 \| cmd2` 구문이 cmd.exe에서 실패 | bash 위임 래퍼로 처리 |
+
+`/kktv.start` 실행 시 Windows 환경이 감지되면, win-hooks 진단 로직이 자동으로 실행되어 설치된 모든 플러그인의 훅 호환성을 검사하고 `reports/security/win-hooks-compat.md`에 결과를 저장합니다.
+
+```bash
+# win-hooks 설치 (Windows 사용자 권장)
+/plugin marketplace add LilMGenius/win-hooks
+/plugin install win-hooks
+```
+
+---
+
 ## 참고 자료
 
 - [KISA Python 시큐어코딩 가이드(2023년 개정본)](https://www.kisa.or.kr)
