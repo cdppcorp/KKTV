@@ -41,6 +41,84 @@ After writing all files, display the summary.md content to the user directly.
 
 ---
 
+## Step 0: Environment Questionnaire (First Run)
+
+Before starting the scan, present an environment questionnaire. Auto-detect what you can, then ask the user to confirm and fill in the rest.
+
+### Auto-Detect Items
+1. **Operating System**: Detect via Bash tool (`uname -s` or environment variables) — win32/linux/darwin
+2. **Language & Framework**: Detect from config files and source files (see Step 1 below)
+3. **Package Manager**: package.json (npm/yarn), requirements.txt (pip), go.mod (go), etc.
+
+### User Questions
+Show auto-detected results, then ask for confirmation and additional info:
+
+```markdown
+# KKTV Security Audit — Environment Setup
+
+Auto-detected environment:
+- OS: [detected OS]
+- Language: [detected language]
+- Framework: [detected framework]
+- Package Manager: [detected package manager]
+
+Additional questions:
+1. Is the detection above correct? (Y/N, provide corrections if wrong)
+2. Deployment target? (e.g., Vercel, Railway, AWS, self-hosted, undecided)
+3. Database? (e.g., PostgreSQL, MySQL, MongoDB, SQLite, none)
+4. Authentication method? (e.g., session-based, JWT, OAuth, none, not yet implemented)
+```
+
+### Windows-Specific: Plugin Hook Compatibility Diagnosis
+
+When OS is detected as `win32`, automatically run **plugin hook compatibility diagnosis**:
+
+#### Win-Hooks Diagnosis Procedure
+
+1. **Scan installed plugin hooks.json files**
+```bash
+find ~/.claude/plugins/cache -name "hooks.json" -not -path "*/.git/*"
+```
+
+2. **Classify each hook command**
+
+| Pattern | Example | Verdict |
+|---------|---------|---------|
+| Uses `.cmd` wrapper | `"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd" script` | COMPATIBLE - skip |
+| Direct `.sh` call | `${CLAUDE_PLUGIN_ROOT}/scripts/foo.sh` | INCOMPATIBLE - fix needed |
+| Bare command not in PATH | `semgrep mcp -k foo` | INCOMPATIBLE - fix needed |
+| `python3` call | `python3 ${CLAUDE_PLUGIN_ROOT}/hooks/foo.py` | CHECK - test if python3 exists |
+| `node`/`npx` call | `node ${CLAUDE_PLUGIN_ROOT}/server.js` | USUALLY OK - verify |
+| Shell pipeline | `cmd1 \| cmd2` | INCOMPATIBLE - fix needed |
+
+3. **Include findings in the report**
+   - Save diagnosis to `reports/security/win-hooks-compat.md`
+   - Add "Windows Plugin Compatibility" section in summary.md
+   - Provide fix guidance: `.sh` → `.cmd` wrapper, missing PATH commands → graceful exit wrapper
+
+4. **Auto-fix suggestions**
+   - If win-hooks plugin not installed: recommend installation
+   - If already installed: inform that next session restart will auto-patch
+
+### Environment Info in Reports
+
+Detected/confirmed environment info is included in all report headers:
+```
+Project: [project name]
+OS: [operating system] (Windows includes win-hooks diagnosis)
+Stack: [language] + [framework]
+Deploy Target: [deployment platform]
+Database: [DB type]
+Auth Method: [auth type]
+```
+
+Based on this, **auto-SKIP non-applicable rules**:
+- No DB → SQL Injection (SR-01), LDAP Injection (SR-02) SKIP
+- No auth → Auth/Authorization category SKIP (but show "implementation recommended" note)
+- No file upload → File Upload (SR-13) SKIP
+
+---
+
 ## Step 1: Detect Project Language and Framework
 
 Before scanning, identify the project's technology stack:

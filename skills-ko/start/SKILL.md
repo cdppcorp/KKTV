@@ -41,6 +41,84 @@ reports/security/
 
 ---
 
+## 0단계: 환경 질문지 (첫 실행 시)
+
+스캔을 시작하기 전에 사용자에게 다음 질문지를 제시하십시오. 가능한 항목은 자동 감지하고, 감지 불가 항목만 질문합니다.
+
+### 자동 감지 항목
+1. **운영체제**: Bash 도구로 `uname -s` 또는 환경 변수를 통해 감지 (win32/linux/darwin)
+2. **언어 및 프레임워크**: 설정 파일과 소스 파일로 감지 (아래 1단계 참고)
+3. **패키지 매니저**: package.json(npm/yarn), requirements.txt(pip), go.mod(go) 등
+
+### 사용자 질문 항목
+감지 결과를 보여준 후, 확인 및 추가 정보를 요청합니다:
+
+```markdown
+# KKTV 보안 감사 환경 설정
+
+자동 감지된 환경:
+- OS: [감지된 OS]
+- 언어: [감지된 언어]
+- 프레임워크: [감지된 프레임워크]
+- 패키지 매니저: [감지된 패키지 매니저]
+
+추가 질문:
+1. 위 감지 결과가 맞습니까? (Y/N, 틀리면 수정사항 입력)
+2. 배포 대상 플랫폼은? (예: Vercel, Railway, AWS, 자체 서버, 아직 미정)
+3. 데이터베이스를 사용합니까? (예: PostgreSQL, MySQL, MongoDB, SQLite, 없음)
+4. 인증 방식은? (예: 세션 기반, JWT, OAuth, 없음, 아직 미구현)
+```
+
+### Windows 환경 감지 시 추가 진단
+
+OS가 `win32`로 감지되면 **플러그인 훅 호환성 진단**을 자동으로 추가 실행합니다:
+
+#### Win-Hooks 진단 절차
+
+1. **설치된 플러그인의 hooks.json 스캔**
+```bash
+find ~/.claude/plugins/cache -name "hooks.json" -not -path "*/.git/*"
+```
+
+2. **각 훅 명령어를 분류**
+
+| 패턴 | 예시 | 판정 |
+|------|------|------|
+| `.cmd` 래퍼 사용 | `"${CLAUDE_PLUGIN_ROOT}/hooks/run-hook.cmd" script` | 호환 - 통과 |
+| `.sh` 직접 호출 | `${CLAUDE_PLUGIN_ROOT}/scripts/foo.sh` | 비호환 - 수정 필요 |
+| PATH에 없는 명령 | `semgrep mcp -k foo` | 비호환 - 수정 필요 |
+| `python3` 호출 | `python3 ${CLAUDE_PLUGIN_ROOT}/hooks/foo.py` | 확인 필요 - python3 존재 여부 |
+| `node`/`npx` 호출 | `node ${CLAUDE_PLUGIN_ROOT}/server.js` | 대체로 호환 - 확인 |
+| 쉘 파이프라인 | `cmd1 \| cmd2` | 비호환 - 수정 필요 |
+
+3. **비호환 훅 발견 시 보고서에 포함**
+   - `reports/security/win-hooks-compat.md` 파일에 진단 결과 저장
+   - summary.md에 "Windows 플러그인 호환성" 섹션 추가
+   - 수정 방법 안내: `.sh` → `.cmd` 래퍼, PATH 누락 명령 → graceful exit 래퍼
+
+4. **자동 수정 제안**
+   - win-hooks 플러그인 미설치 시: "win-hooks 플러그인 설치를 권장합니다" 안내
+   - 이미 설치된 경우: 다음 세션 시작 시 자동 패치됨을 안내
+
+### 보고서에 환경 정보 반영
+
+감지/확인된 환경 정보는 모든 보고서의 헤더에 포함됩니다:
+```
+프로젝트: [프로젝트명]
+OS: [운영체제] (Windows 시 win-hooks 진단 포함)
+기술 스택: [언어] + [프레임워크]
+배포 대상: [배포 플랫폼]
+데이터베이스: [DB 종류]
+인증 방식: [인증 타입]
+```
+
+이 정보를 기반으로 **해당하지 않는 규칙은 자동 SKIP** 처리합니다:
+- DB 미사용 → SQL 삽입(SR-01), LDAP 삽입(SR-02) SKIP
+- 인증 미구현 → 인증/인가 카테고리 SKIP (단, "구현 필요" 권고 표시)
+- 파일 업로드 없음 → 파일 업로드(SR-13) SKIP
+
+---
+
 ## 1단계: 프로젝트 언어 및 프레임워크 감지
 
 스캔 전에 프로젝트의 기술 스택을 식별하세요:
