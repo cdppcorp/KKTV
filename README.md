@@ -2,7 +2,9 @@
 
 # KKTV
 
-### KISA 시큐어코딩 가이드라인을 당신의 코드에
+**KISA Korean Truncheon for Vulnerabilities**
+
+### 취약점을 때려잡는 KISA 시큐어코딩 가이드라인
 
 AI로 웹사이트를 만드는 바이브 코더를 위한 시큐어코딩 스킬
 
