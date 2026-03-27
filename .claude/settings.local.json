@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \":*)",
+      "Bash(python3 -c \":*)",
+      "Bash(cd:*)",
+      "Bash(python:*)",
+      "Bash(find /c/Users/Nowzero/.claude/plugins/cache/authorkit -type f \\\\\\(-name *.json -o -name *.md \\\\\\))",
+      "Bash(gh api:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(mkdir -p \"C:/Users/Nowzero/.claude/plugins/cache/authorkit/authorkit-ko/425c4e84a277/skills/juice\")",
+      "Bash(mkdir -p \"C:/Users/Nowzero/.claude/plugins/cache/authorkit/authorkit-ko/425c4e84a277/skills-ko/juice\")",
+      "Bash(curl:*)",
+      "Bash(find C:/Users/Nowzero/PycharmProjects/Skills/KKTV/authorkit/drafts -name *.md -exec wc -c {} +)",
+      "Bash(find C:/Users/Nowzero/PycharmProjects/Skills/KKTV/authorkit/drafts-fastapi -name *.md -exec wc -c {} +)",
+      "Bash(\"C:/Users/Nowzero/PycharmProjects/Skills/KKTV/skills-ko/check/SKILL.md\")",
+      "Bash(mv skills/review skills/start)",
+      "Bash(mv skills/prompt skills/guide)",
+      "Bash(mv skills-ko/review skills-ko/start)",
+      "Bash(mv skills-ko/prompt skills-ko/guide)"
+    ]
+  }
+}
