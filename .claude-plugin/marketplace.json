@@ -1,0 +1,42 @@
+{
+  "name": "kktv",
+  "owner": {
+    "name": "CDPP Corp",
+    "url": "https://github.com/cdppcorp"
+  },
+  "metadata": {
+    "description": "Secure coding guideline skills for vibe coders. Review code for vulnerabilities, auto-fix security issues, run pre-deployment checklists, and generate secure coding prompts.",
+    "version": "1.0.0",
+    "license": "MIT"
+  },
+  "plugins": [
+    {
+      "name": "kktv-en",
+      "description": "Secure coding skills (English). review(security audit), fix(auto-fix vulnerabilities), check(pre-deployment checklist), prompt(generate secure coding prompts for AI tools).",
+      "source": "./",
+      "strict": false,
+      "keywords": ["security", "secure-coding", "vibe-coding", "vulnerability", "audit", "OWASP"],
+      "category": "security",
+      "skills": [
+        "./skills/review",
+        "./skills/fix",
+        "./skills/check",
+        "./skills/prompt"
+      ]
+    },
+    {
+      "name": "kktv-ko",
+      "description": "시큐어코딩 스킬 (한국어). review(보안 검토), fix(취약점 자동 수정), check(배포 전 체크리스트), prompt(AI에게 안전한 코드 요청 프롬프트 생성).",
+      "source": "./",
+      "strict": false,
+      "keywords": ["보안", "시큐어코딩", "바이브코딩", "취약점", "OWASP", "security"],
+      "category": "security",
+      "skills": [
+        "./skills-ko/review",
+        "./skills-ko/fix",
+        "./skills-ko/check",
+        "./skills-ko/prompt"
+      ]
+    }
+  ]
+}
